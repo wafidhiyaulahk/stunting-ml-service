@@ -1,0 +1,115 @@
+{
+  "_catatan": "Konfigurasi ini adalah SATU-SATUNYA sumber kebenaran untuk pertanyaan skrining. Nama variabel sudah dipastikan dari tabel variabel penelitian. Label 'status': PASTI = nama variabel sudah terkonfirmasi; PERIKSA_KODE = nama variabel sudah pasti, tetapi arti tiap kode angkanya (misalnya 1, 2, 4, 5) masih perlu dicocokkan dengan kamus data penelitian. Untuk memperbaikinya cukup ubah teks pada 'opsi' di berkas ini saja, kode program tidak perlu disentuh.",
+  "urutan_kolom_model": ["P4072_anak", "P404_anak", "P1509", "P810", "P916C", "P501", "MPASI_DIVERSITY"],
+  "variabel_terikat": {
+    "nama": "Status Gizi Balita (Stunting)",
+    "indikator": "Tinggi badan menurut umur (TB/U)",
+    "kriteria": "Stunting bila Z-score TB/U kurang dari -2 SD; tidak stunting bila Z-score TB/U sama dengan atau lebih dari -2 SD",
+    "catatan": "Tinggi badan dipakai untuk menentukan label saat pelatihan model, BUKAN sebagai variabel masukan. Justru di sinilah nilai sistem ini: risiko stunting diperkirakan tanpa mengharuskan orang tua mengukur tinggi badan anak sendiri."
+  },
+  "label_kelas": {
+    "0": "Tidak Berisiko Stunting",
+    "1": "Berisiko Stunting"
+  },
+  "fitur": {
+    "P4072_anak": {
+      "status": "PASTI",
+      "tipe": "numerik",
+      "label": "Usia anak saat ini",
+      "satuan": "bulan",
+      "pertanyaan_awam": "Usia anak dihitung otomatis dari tanggal lahir.",
+      "min": 0,
+      "max": 59,
+      "median_training": 30.5,
+      "sumber": "dihitung_otomatis"
+    },
+    "P1509": {
+      "status": "PASTI",
+      "tipe": "numerik",
+      "label": "Berat badan anak",
+      "satuan": "kg",
+      "pertanyaan_awam": "Berapa berat badan anak pada penimbangan terakhir di Posyandu? Contoh penulisan: 10.5",
+      "min": 2.0,
+      "max": 35.0,
+      "median_training": 11.9,
+      "sumber": "input_pengguna"
+    },
+    "MPASI_DIVERSITY": {
+      "status": "PASTI",
+      "tipe": "numerik",
+      "label": "Pola pemberian makan (MP-ASI)",
+      "satuan": "kelompok",
+      "pertanyaan_awam": "Centang semua jenis makanan dan minuman yang diterima anak dalam 24 jam terakhir. Sistem menghitung jumlahnya secara otomatis.",
+      "min": 0,
+      "max": 8,
+      "median_training": 0,
+      "sumber": "dihitung_dari_checkbox",
+      "asal_kolom": ["P1108CK2", "P1108KK2", "P1108LK2", "P1108MK2", "P1108RK2", "P1108TK2", "P1108UK2", "P1108WK2"],
+      "catatan_kelompok": "Delapan kelompok di bawah mengikuti standar keragaman pangan minimum anak dari WHO, sesuai dengan delapan kolom asal pada data penelitian. Pada data pelatihan nilai tertinggi yang pernah muncul adalah 6.",
+      "kelompok_makanan": [
+        "ASI (air susu ibu)",
+        "Bubur, nasi, kentang, roti, mi, atau umbi-umbian",
+        "Kacang-kacangan, tahu, atau tempe",
+        "Susu, keju, atau yoghurt",
+        "Daging, ayam, ikan, atau hati",
+        "Telur",
+        "Sayur dan buah berwarna oranye atau hijau tua (wortel, labu, bayam, pepaya, mangga)",
+        "Sayur dan buah lainnya (pisang, jeruk, tomat, kol)"
+      ]
+    },
+    "P404_anak": {
+      "status": "PASTI",
+      "tipe": "biner",
+      "label": "Jenis kelamin balita",
+      "pertanyaan_awam": "Jenis kelamin anak.",
+      "opsi": [
+        { "nilai": 0, "teks": "Laki-laki" },
+        { "nilai": 1, "teks": "Perempuan" }
+      ],
+      "modus_training": 0,
+      "sumber": "input_pengguna"
+    },
+    "P916C": {
+      "status": "PASTI",
+      "tipe": "biner",
+      "label": "Anemia",
+      "pertanyaan_awam": "Apakah anak pernah dinyatakan mengalami anemia atau kekurangan darah oleh tenaga kesehatan? Tanda yang sering terlihat antara lain wajah dan kelopak mata bagian dalam tampak pucat, anak mudah lelah, serta kurang aktif dibanding biasanya.",
+      "opsi": [
+        { "nilai": 0, "teks": "Tidak pernah dinyatakan anemia" },
+        { "nilai": 1, "teks": "Ya, pernah dinyatakan anemia" }
+      ],
+      "modus_training": 0,
+      "proporsi_ya_training": 0.222,
+      "sumber": "input_pengguna"
+    },
+    "P810": {
+      "status": "PERIKSA_KODE",
+      "tipe": "nominal",
+      "label": "Tuberkulosis (TBC)",
+      "pertanyaan_awam": "Apakah anak pernah didiagnosis tuberkulosis atau TBC oleh dokter maupun petugas kesehatan? Pilih jawaban yang paling sesuai dengan keadaan anak.",
+      "catatan_kode": "Nama variabel sudah pasti TBC. Model mengenal kode 1, 2, dan 3, dan sebanyak 98,4 persen data pelatihan bernilai 3, sehingga kode 3 hampir pasti berarti tidak pernah didiagnosis TBC. Arti kode 1 dan 2 perlu Anda cocokkan dengan kamus data, lalu sesuaikan teks di bawah ini.",
+      "opsi": [
+        { "nilai": 3, "teks": "Tidak pernah didiagnosis TBC" },
+        { "nilai": 1, "teks": "Ya, pernah didiagnosis TBC" },
+        { "nilai": 2, "teks": "Ya, sedang menjalani pengobatan TBC" }
+      ],
+      "modus_training": 3,
+      "sumber": "input_pengguna"
+    },
+    "P501": {
+      "status": "PERIKSA_KODE",
+      "tipe": "nominal",
+      "label": "Kualitas air minum",
+      "pertanyaan_awam": "Sumber air minum yang paling sering dipakai keluarga untuk anak sehari-hari.",
+      "catatan_kode": "Nama variabel sudah pasti kualitas air minum. Model hanya mengenal kode 1, 2, 4, dan 5; kode 3 tidak pernah muncul saat pelatihan. Urutan teks di bawah disusun dari sumber paling terlindungi ke paling tidak terlindungi dan perlu Anda cocokkan dengan kamus data penelitian.",
+      "opsi": [
+        { "nilai": 1, "teks": "Air kemasan bermerek atau air isi ulang" },
+        { "nilai": 2, "teks": "Air ledeng atau PDAM" },
+        { "nilai": 4, "teks": "Sumur bor atau sumur terlindungi" },
+        { "nilai": 5, "teks": "Sumur tidak terlindungi, mata air terbuka, atau air sungai" }
+      ],
+      "modus_training": 1,
+      "sumber": "input_pengguna"
+    }
+  }
+}

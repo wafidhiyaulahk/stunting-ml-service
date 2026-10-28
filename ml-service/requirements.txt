@@ -1,0 +1,20 @@
+# Diuji pada Python 3.13 (win_amd64) dan Python 3.11.
+#
+# scikit-learn DIKUNCI di 1.6.1 karena model_KNN.pkl dilatih dengan versi itu.
+# Memuatnya dengan versi lain (1.9.x, 1.8.x) menimbulkan error
+# "Can't get attribute '_RemainderColsList'". Jangan diubah.
+scikit-learn==1.6.1
+imbalanced-learn==0.13.0
+
+# numpy TIDAK boleh dikunci di 2.0.2: versi itu tidak menyediakan wheel untuk
+# Python 3.13, sehingga pip mencoba mengompilasinya dari kode sumber dan gagal
+# dengan pesan "Unknown compiler(s)" pada komputer tanpa Visual Studio.
+# Rentang di bawah ini sudah tersedia dalam bentuk wheel siap pasang.
+numpy>=2.1,<2.3
+pandas>=2.2.3,<3
+joblib>=1.4,<2
+
+Flask>=3,<4
+flask-cors>=4,<7
+waitress>=3,<4
+gunicorn>=22.0.0; sys_platform != 'win32'
